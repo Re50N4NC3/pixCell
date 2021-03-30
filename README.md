@@ -1,0 +1,2 @@
+# pixCell
+ Various cellular automatons
