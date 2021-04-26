@@ -19,6 +19,7 @@ public class MapControls : MonoBehaviour {
     void Update() {
         HandleMouseInput();
         PickPlacedType();
+        ResetMap();
     }
 
     public void HandleMouseInput() {
@@ -49,6 +50,24 @@ public class MapControls : MonoBehaviour {
             gameManager.FindActivatedNodes();
             map.textureInstance.Apply();
         }
+    }
+
+    public void ResetMap() {
+        if (Input.GetKeyDown(KeyCode.R)) {
+            for (int x = 0; x < map.maxX; x++) {
+                for (int y = 0; y < map.maxY; y++) {
+                    Node node = GetNode(x, y);
+                    node.cellType = 0;
+                    node.cellTypeDelta = 0;
+                    node.unchangedAge = 0;
+
+                    gameManager.UpdateGridVisuals(node);
+                }
+            }
+
+            map.textureInstance.Apply();
+        }
+
     }
 
 

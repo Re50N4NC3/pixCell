@@ -144,6 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61f7d4863e35c4a42ae2ea3c3a49c538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  changeColorOverTime: 1
   scriptableCellsData:
   - {fileID: 11400000, guid: a24f2fcad5d65824f85be6b4c27a70e2, type: 2}
   - {fileID: 11400000, guid: a0c695bfbe975da4ebd3ceeabb9cec62, type: 2}
@@ -160,11 +161,12 @@ MonoBehaviour:
   - 42212
   - _gnarl1012345678
   - _gnarl0111
-  - _mush1011
-  - _mush011378
+  - 1011
+  - 011378
   - _noDeath0113
-  - 0113678
-  - 101014
+  - _0113678
+  - _101014
+  deactivationTime: 4
   activated: 0
   ant: 0
   timerMax: 0.04
@@ -229,7 +231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxX: 0
   maxY: 0
-  levelTex: {fileID: 2800000, guid: 9a08962e7ecd9a547befd6e028da4f31, type: 3}
+  levelTex: {fileID: 2800000, guid: b6af57a41c2ada741a536cf88c90150d, type: 3}
   levelRenderer: {fileID: 2033175784}
   textureInstance: {fileID: 0}
   chunkMaxX: 0
@@ -259,6 +261,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420030}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -274,6 +277,23 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
+--- !u!114 &519420030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87fa4b190abdc2e469e61dff4a25a8dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoomSpeed: 100
+  targetOrtho: 150
+  smoothSpeed: 2
+  minOrtho: 1
+  maxOrtho: 150
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -300,7 +320,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 74.308044
+  orthographic size: 150
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -324,7 +344,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 131, y: 67, z: -10}
+  m_LocalPosition: {x: 325.7, y: 151, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -398,7 +418,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -5
-  m_Sprite: {fileID: 21300000, guid: 9a08962e7ecd9a547befd6e028da4f31, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b6af57a41c2ada741a536cf88c90150d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -8,8 +8,12 @@ public class GameManager : MonoBehaviour {
     private GenerateMap map;
     private MapControls controls;
 
+    public bool changeColorOverTime = true;
+
     public CellScriptable[] scriptableCellsData;
     public string[] ruleInstructions;
+
+    public int deactivationTime = 4;
 
     public bool activated = false;
     public bool ant = false;
@@ -71,6 +75,18 @@ public class GameManager : MonoBehaviour {
         }
         else {
             findNodes = false;
+        }
+        SimulationControls();
+    }
+
+    void SimulationControls() {
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            activated = !activated;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q)) {
+            FindActivatedNodes();
+            ExecuteNodes();
         }
     }
 
@@ -203,11 +219,17 @@ public class GameManager : MonoBehaviour {
 
     public void UpdateGridVisuals(Node node) {
         Color c = new Color(
+            scriptableCellsData[node.cellType].cellColor.r,
+            scriptableCellsData[node.cellType].cellColor.g,
+            scriptableCellsData[node.cellType].cellColor.b
+            );
+        
+        /*Color c = new Color(
             scriptableCellsData[node.cellType].cellColor.r / (400 / (node.unchangedAge + 1)),
             scriptableCellsData[node.cellType].cellColor.g / (120 / (node.unchangedAge + 1)),
             scriptableCellsData[node.cellType].cellColor.b / (40 / (node.unchangedAge + 1))
             );
-        /*nice colors for mushroom
+        nice colors for mushroom
          *         Color c = new Color(
             scriptableCellsData[node.cellType].cellColor.r / (150 / (node.unchangedAge + 1)),
             scriptableCellsData[node.cellType].cellColor.g / ( 40 / (node.unchangedAge + 1)),
@@ -232,7 +254,7 @@ public class GameManager : MonoBehaviour {
         nodeToReset.cellType = nodeToReset.cellTypeDelta;
         nodeToReset.cellTypeDelta = nodeToReset.cellType;
 
-        if (nodeToReset.cellType != 0 && nodeToReset.unchangedAge < 100) {
+        if (nodeToReset.cellType != 0 && nodeToReset.unchangedAge < deactivationTime) {
             activatedNodesBuffer.Add(nodeToReset);
         }
     }
