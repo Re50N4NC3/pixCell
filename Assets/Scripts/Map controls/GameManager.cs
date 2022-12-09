@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private void Update() {
-        if (activated == true) {
+        if (activated == true && ant == false) {
             if (findNodes == false) {
                 findNodes = true;
 
@@ -218,25 +218,24 @@ public class GameManager : MonoBehaviour {
     }
 
     public void UpdateGridVisuals(Node node) {
-        Color c = new Color(
-            scriptableCellsData[node.cellType].cellColor.r,
-            scriptableCellsData[node.cellType].cellColor.g,
-            scriptableCellsData[node.cellType].cellColor.b
-            );
+        // Color c = new Color(
+        //     scriptableCellsData[node.cellType].cellColor.r,
+        //     scriptableCellsData[node.cellType].cellColor.g,
+        //     scriptableCellsData[node.cellType].cellColor.b
+        //     );
         
-        /*Color c = new Color(
+        Color c = new Color(
             scriptableCellsData[node.cellType].cellColor.r / (400 / (node.unchangedAge + 1)),
             scriptableCellsData[node.cellType].cellColor.g / (120 / (node.unchangedAge + 1)),
             scriptableCellsData[node.cellType].cellColor.b / (40 / (node.unchangedAge + 1))
             );
-        nice colors for mushroom
-         *         Color c = new Color(
-            scriptableCellsData[node.cellType].cellColor.r / (150 / (node.unchangedAge + 1)),
-            scriptableCellsData[node.cellType].cellColor.g / ( 40 / (node.unchangedAge + 1)),
-            scriptableCellsData[node.cellType].cellColor.b / (400 / (node.unchangedAge + 1))
-            );
-         */
-        node.cellColor = c;
+        // nice colors for mushroom
+        //      Color c = new Color(
+        //     scriptableCellsData[node.cellType].cellColor.r / (150 / (node.unchangedAge + 1)),
+        //     scriptableCellsData[node.cellType].cellColor.g / ( 40 / (node.unchangedAge + 1)),
+        //     scriptableCellsData[node.cellType].cellColor.b / (400 / (node.unchangedAge + 1))
+        //     );
+        // node.cellColor = c;
 
         map.textureInstance.SetPixel(node.x, node.y, c);
     }

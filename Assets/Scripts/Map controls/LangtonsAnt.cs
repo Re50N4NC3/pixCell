@@ -9,8 +9,8 @@ public class LangtonsAnt : MonoBehaviour {
 
     public int steps = 0;
 
-    public int posX = 120;
-    public int posY = 60;
+    public int posX = 320;
+    public int posY = 150;
     public int direction = 0;  // N W S E
 
     public int antState = 0;  // for turmites
