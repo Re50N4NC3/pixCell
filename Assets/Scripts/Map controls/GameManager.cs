@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour {
     public List<Node> activatedNodes = new List<Node>();
     public List<Node> activatedNodesBuffer = new List<Node>();
     /* 
+    flow logic
      * activation > 
      * find white nodes > 
      * save white nodes positions in list > // only for activation
@@ -80,10 +81,12 @@ public class GameManager : MonoBehaviour {
     }
 
     void SimulationControls() {
+        // start/stop simulation
         if (Input.GetKeyDown(KeyCode.Space)) {
             activated = !activated;
         }
 
+        // move one step
         if (Input.GetKeyDown(KeyCode.Q)) {
             FindActivatedNodes();
             ExecuteNodes();
@@ -154,35 +157,33 @@ public class GameManager : MonoBehaviour {
         for (int i = 0; i < ruleInstructions.Length; i++) {
             if (ruleInstructions[i][0] != '_') {
                 if ((int)char.GetNumericValue(ruleInstructions[i][0]) == node.cellType) {
+                    // direct change (for wireworld)
+                    if (ruleInstructions[i].Length < 3) {
+                        int stateToTurnInto = (int)char.GetNumericValue(ruleInstructions[i][1]);
+                        found = true;
+                        node.cellTypeDelta = stateToTurnInto;
 
-                // direct change
-                if (ruleInstructions[i].Length < 3) {
-                    int stateToTurnInto = (int)char.GetNumericValue(ruleInstructions[i][1]);
-                    found = true;
-                    node.cellTypeDelta = stateToTurnInto;
+                        break;
+                    }
+                    // ruled change
+                    else {
+                        int neighborToCheckFor = (int)char.GetNumericValue(ruleInstructions[i][2]);
 
-                    break;
-                }
-                // ruled change
-                else {
-                    int neighborToCheckFor = (int)char.GetNumericValue(ruleInstructions[i][2]);
+                        // check rule for current cell type
+                        for (int s = 3; s < ruleInstructions[i].Length; s++) {
+                            int neighborsNeeded = (int)char.GetNumericValue(ruleInstructions[i][s]);
 
-                    // check rule for current cell type
-                    for (int s = 3; s < ruleInstructions[i].Length; s++) {
-                        int neighborsNeeded = (int)char.GetNumericValue(ruleInstructions[i][s]);
+                            if (neighbors[neighborToCheckFor] == neighborsNeeded) {
+                                int stateToTurnInto = (int)char.GetNumericValue(ruleInstructions[i][1]);
+                                found = true;
+                                node.cellTypeDelta = stateToTurnInto;
 
-                        if (neighbors[neighborToCheckFor] == neighborsNeeded) {
-                            int stateToTurnInto = (int)char.GetNumericValue(ruleInstructions[i][1]);
-                            found = true;
-                            node.cellTypeDelta = stateToTurnInto;
-
-                            break;
+                                break;
+                            }
                         }
                     }
-                }
             }
-
-            if (found == true) { break; }
+                if (found == true) { break; }
             }
         }
     }
@@ -218,17 +219,17 @@ public class GameManager : MonoBehaviour {
     }
 
     public void UpdateGridVisuals(Node node) {
-        // Color c = new Color(
-        //     scriptableCellsData[node.cellType].cellColor.r,
-        //     scriptableCellsData[node.cellType].cellColor.g,
-        //     scriptableCellsData[node.cellType].cellColor.b
-        //     );
-        
         Color c = new Color(
-            scriptableCellsData[node.cellType].cellColor.r / (400 / (node.unchangedAge + 1)),
-            scriptableCellsData[node.cellType].cellColor.g / (120 / (node.unchangedAge + 1)),
-            scriptableCellsData[node.cellType].cellColor.b / (40 / (node.unchangedAge + 1))
+            scriptableCellsData[node.cellType].cellColor.r,
+            scriptableCellsData[node.cellType].cellColor.g,
+            scriptableCellsData[node.cellType].cellColor.b
             );
+        
+        // Color c = new Color(
+        //     scriptableCellsData[node.cellType].cellColor.r / (400 / (node.unchangedAge + 1)),
+        //     scriptableCellsData[node.cellType].cellColor.g / (120 / (node.unchangedAge + 1)),
+        //     scriptableCellsData[node.cellType].cellColor.b / (40 / (node.unchangedAge + 1))
+        //     );
         // nice colors for mushroom
         //      Color c = new Color(
         //     scriptableCellsData[node.cellType].cellColor.r / (150 / (node.unchangedAge + 1)),
