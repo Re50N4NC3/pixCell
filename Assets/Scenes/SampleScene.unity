@@ -216,7 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61f7d4863e35c4a42ae2ea3c3a49c538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  changeColorOverTime: 1
+  changeColorOverTime: 0
   scriptableCellsData:
   - {fileID: 11400000, guid: a24f2fcad5d65824f85be6b4c27a70e2, type: 2}
   - {fileID: 11400000, guid: a0c695bfbe975da4ebd3ceeabb9cec62, type: 2}
@@ -224,17 +224,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 68d69d89b0a55704b906f451aec14c39, type: 2}
   - {fileID: 11400000, guid: b403b5d0781c62743b39d4bcbebed836, type: 2}
   ruleInstructions:
-  - _11123
+  - 4568/3457
   - _life1011
   - _life10145678
   - _life0113
   - 23
   - 34
-  - 42212
+  - 44
   - _life10101
   - _gnarl0111
-  - 0113678
-  - 011378
+  - _0113678
+  - _011378
   - _noDeath0113
   - _gnarl1012345678
   - _101014
