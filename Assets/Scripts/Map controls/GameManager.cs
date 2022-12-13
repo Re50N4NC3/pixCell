@@ -152,38 +152,60 @@ public class GameManager : MonoBehaviour {
         neighbors = CountNeighbors(node);
         bool found = false;
 
-        // 0 - current state; 1 - state to change to; 2 - state to check for
         // go through all the rules
         for (int i = 0; i < ruleInstructions.Length; i++) {
             if (ruleInstructions[i][0] != '_') {
-                if ((int)char.GetNumericValue(ruleInstructions[i][0]) == node.cellType) {
-                    // direct change (for wireworld)
-                    if (ruleInstructions[i].Length < 3) {
+                // TODO fix wireworld, wire doesnt conduct
+                // direct change (for wireworld), "xy" rule means x will change into y after one step
+                if (ruleInstructions[i].Length < 3) {
+                    if ((int)char.GetNumericValue(ruleInstructions[i][0]) == node.cellType) {
                         int stateToTurnInto = (int)char.GetNumericValue(ruleInstructions[i][1]);
                         found = true;
                         node.cellTypeDelta = stateToTurnInto;
 
                         break;
                     }
-                    // ruled change
-                    else {
-                        int neighborToCheckFor = (int)char.GetNumericValue(ruleInstructions[i][2]);
+                }  
+                else {
+                    // ruled change, described as S/B (survival/birth)
+                    bool checkBirthRules = false;
 
-                        // check rule for current cell type
-                        for (int s = 3; s < ruleInstructions[i].Length; s++) {
+                    for (int s = 0; s < ruleInstructions[i].Length; s++) {
+                        if (ruleInstructions[i][s] != '/'){
                             int neighborsNeeded = (int)char.GetNumericValue(ruleInstructions[i][s]);
 
-                            if (neighbors[neighborToCheckFor] == neighborsNeeded) {
-                                int stateToTurnInto = (int)char.GetNumericValue(ruleInstructions[i][1]);
-                                found = true;
-                                node.cellTypeDelta = stateToTurnInto;
+                            if (checkBirthRules == false){
+                                if (node.cellType == 1){
+                                    if (neighbors[1] == neighborsNeeded) {
+                                        int stateToTurnInto = 1;
+                                        found = true;
+                                        node.cellTypeDelta = stateToTurnInto;
 
-                                break;
+                                        break;
+                                    }
+                                }
+                            }
+                            else{
+                                if (node.cellType == 0){
+                                    if (neighbors[1] == neighborsNeeded) {
+                                        int stateToTurnInto = 1;
+                                        found = true;
+                                        node.cellTypeDelta = stateToTurnInto;
+
+                                        break;
+                                    }
+                                }
                             }
                         }
+                        else{
+                            checkBirthRules = true;
+                        }
                     }
-            }
+                }
                 if (found == true) { break; }
+                else{
+                   node.cellTypeDelta = 0;
+                }
             }
         }
     }
