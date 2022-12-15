@@ -158,12 +158,22 @@ public class GameManager : MonoBehaviour {
                 // TODO fix wireworld, wire doesnt conduct
                 // direct change (for wireworld), "xy" rule means x will change into y after one step
                 if (ruleInstructions[i].Length < 3) {
+                    // tail and head instructions
                     if ((int)char.GetNumericValue(ruleInstructions[i][0]) == node.cellType) {
                         int stateToTurnInto = (int)char.GetNumericValue(ruleInstructions[i][1]);
                         found = true;
                         node.cellTypeDelta = stateToTurnInto;
 
                         break;
+                    }
+                    // wire instructions
+                    if (node.cellType == 4) {
+                        if (neighbors[2] == 1 || neighbors[2] == 2){
+                            found = true;
+                            node.cellTypeDelta = 2;
+
+                            break;
+                        }
                     }
                 }  
                 else {
