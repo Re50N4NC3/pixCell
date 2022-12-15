@@ -89,8 +89,8 @@ public class MapControls : MonoBehaviour {
     }
 
     public Node GetNodeFromWorldPos(Vector3 worldPos) {
-        int targetX = Mathf.RoundToInt(worldPos.x);
-        int targetY = Mathf.RoundToInt(worldPos.y);
+        int targetX = Mathf.FloorToInt(worldPos.x);
+        int targetY = Mathf.FloorToInt(worldPos.y);
 
         return GetNode(targetX, targetY);
     }
