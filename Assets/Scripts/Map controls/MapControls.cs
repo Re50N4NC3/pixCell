@@ -10,6 +10,8 @@ public class MapControls : MonoBehaviour {
     public int pickedType = 1;
     public int brushSize = 3;
 
+    public float leftClickTimer = 0.0f;
+
     private void Awake() {
         map = GetComponent<GenerateMap>();
         gameManager = GetComponent<GameManager>();
@@ -25,30 +27,37 @@ public class MapControls : MonoBehaviour {
     public void HandleMouseInput() {
         //clicked with mouse
         if (Input.GetMouseButton(0)) {
-            for (int x = 0; x < brushSize; x++) {
-                for (int y = 0; y < brushSize; y++) {
-                    GetMousePos();
-                    int targetX = x + curNode.x;
-                    int targetY = y + curNode.y;
+            leftClickTimer += Time.deltaTime;
 
-                    Node node = GetNode(targetX, targetY);
+            if (leftClickTimer > 0.03f && !Input.GetMouseButton(1)){
+                for (int x = 0; x < brushSize; x++) {
+                    for (int y = 0; y < brushSize; y++) {
+                        GetMousePos();
+                        int targetX = x + curNode.x;
+                        int targetY = y + curNode.y;
 
-                    if (node == null) {
-                        continue;
+                        Node node = GetNode(targetX, targetY);
+
+                        if (node == null) {
+                            continue;
+                        }
+
+                        // change cell type
+                        node.cellType = pickedType;
+                        node.cellTypeDelta = node.cellType;
+                        node.unchangedAge = 0;
+                        map.chunkAgeCounter[Mod(targetX, map.chunkSize), Mod(targetY, map.chunkSize)] = 0;
+
+                        gameManager.UpdateGridVisuals(node);
                     }
-
-                    // change cell type
-                    node.cellType = pickedType;
-                    node.cellTypeDelta = node.cellType;
-                    node.unchangedAge = 0;
-                    map.chunkAgeCounter[Mod(targetX, map.chunkSize), Mod(targetY, map.chunkSize)] = 0;
-
-                    gameManager.UpdateGridVisuals(node);
                 }
             }
 
             gameManager.FindActivatedNodes();
             map.textureInstance.Apply();
+        }
+        else{
+            leftClickTimer = 0.0f;
         }
     }
 
@@ -67,7 +76,6 @@ public class MapControls : MonoBehaviour {
 
             map.textureInstance.Apply();
         }
-
     }
 
 
@@ -77,8 +85,6 @@ public class MapControls : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Alpha2)) { pickedType = 2; }
         if (Input.GetKeyDown(KeyCode.Alpha3)) { pickedType = 3; }
         if (Input.GetKeyDown(KeyCode.Alpha4)) { pickedType = 4; }
-        if (Input.GetKeyDown(KeyCode.Alpha5)) { pickedType = 5; }
-        if (Input.GetKeyDown(KeyCode.Alpha6)) { pickedType = 6; }
     }
 
     public void GetMousePos() {
