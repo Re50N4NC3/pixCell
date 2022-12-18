@@ -258,9 +258,9 @@ public class GameManager : MonoBehaviour {
             );
         
         // Color c = new Color(
-        //     scriptableCellsData[node.cellType].cellColor.r / (400 / (node.unchangedAge + 1)),
-        //     scriptableCellsData[node.cellType].cellColor.g / (120 / (node.unchangedAge + 1)),
-        //     scriptableCellsData[node.cellType].cellColor.b / (40 / (node.unchangedAge + 1))
+        //     scriptableCellsData[node.cellType].cellColor.r / (400 / (node.unchangedAge + 10)),
+        //     scriptableCellsData[node.cellType].cellColor.g / (120 / (node.unchangedAge + 10)),
+        //     scriptableCellsData[node.cellType].cellColor.b / (40 / (node.unchangedAge + 10))
         //     );
         // nice colors for mushroom
         //      Color c = new Color(
