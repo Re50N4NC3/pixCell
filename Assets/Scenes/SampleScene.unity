@@ -322,7 +322,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickedType: 1
   brushSize: 1
-  leftClickTimer: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,7 +365,7 @@ MonoBehaviour:
   zoomSpeed: 100
   targetOrtho: 10
   smoothSpeed: 6
-  minOrtho: 1
+  minOrtho: 10
   maxOrtho: 150
 --- !u!20 &519420031
 Camera:

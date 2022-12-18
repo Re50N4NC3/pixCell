@@ -33,6 +33,10 @@ public class MapControls : MonoBehaviour {
                 for (int x = 0; x < brushSize; x++) {
                     for (int y = 0; y < brushSize; y++) {
                         GetMousePos();
+                        if (curNode == null){
+                            continue;
+                        }
+                        
                         int targetX = x + curNode.x;
                         int targetY = y + curNode.y;
 
