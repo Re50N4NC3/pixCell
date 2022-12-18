@@ -10,7 +10,7 @@ public class MapControls : MonoBehaviour {
     public int pickedType = 1;
     public int brushSize = 3;
 
-    public float leftClickTimer = 0.0f;
+    float leftClickTimer = 0.0f;
 
     private void Awake() {
         map = GetComponent<GenerateMap>();
