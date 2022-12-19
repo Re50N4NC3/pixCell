@@ -436,6 +436,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c50675ce743ad4a9095370b428df7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drag: 0
 --- !u!1 &911803944
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,6 +534,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mousePos: {x: 0, y: 0, z: 0}
+  spriteRenderer: {fileID: 911803945}
+  cameraDrag: {fileID: 519420033}
 --- !u!1 &2033175781
 GameObject:
   m_ObjectHideFlags: 0

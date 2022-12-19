@@ -9,7 +9,7 @@ public class CameraDrag : MonoBehaviour{
 
     float smoothSpeed = 2.0f;
 
-    private bool drag = false;
+    public bool drag = false;
 
     private void Start(){
         resetCamera = Camera.main.transform.position;

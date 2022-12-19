@@ -5,6 +5,9 @@ using UnityEngine;
 public class CursorController : MonoBehaviour{
     [SerializeField] Vector3 mousePos;
 
+    public SpriteRenderer spriteRenderer;
+    public CameraDrag cameraDrag;
+
     // Start is called before the first frame update
     void Start(){
         
@@ -19,5 +22,7 @@ public class CursorController : MonoBehaviour{
         float targetY = Mathf.Floor(mousePos.y) + 0.5f;
 
         transform.position = new Vector3(targetX, targetY, 0);
+
+        spriteRenderer.enabled = !cameraDrag.drag;
     }
 }
