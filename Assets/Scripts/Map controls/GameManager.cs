@@ -37,7 +37,17 @@ public class GameManager : MonoBehaviour {
     public float timerMax = 0.5f;
     float timer = 0.0f;
 
+    public static GameManager Instance { get; private set; }
+
     private void Awake() {
+        // singleton instance check
+        if (Instance != null && Instance != this) { 
+            Destroy(this); 
+        } 
+        else { 
+            Instance = this; 
+        } 
+
         map = GetComponent<GenerateMap>();
         controls = GetComponent<MapControls>();
 
