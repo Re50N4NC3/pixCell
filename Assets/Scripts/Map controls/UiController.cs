@@ -13,9 +13,28 @@ public class UiController : MonoBehaviour{
     public GameObject errorWindow;
     InputField myField;
 
+    [SerializeField] GameObject sidePanel; 
+    float holdTimer = 0.0f;
+    public float holdTimerMax = 1.2f;
+    public bool sidePanelVisible = false;
+
+    [SerializeField] Transform sidePanelPositionOn; 
+    [SerializeField] Transform sidePanelPositionOff; 
+
+    [SerializeField] float panelSpeed = 8.0f;
+    float distanceDifference;
+    Vector3 distanceStartPoint;
+    bool distancePointSet = false;
+    float minDistanceDifference = 20.0f;
+
     // Update is called once per frame
     void Update(){
+        SidePanelMovement();
+        SidePanelControls();
         
+        if (Input.GetKeyDown(KeyCode.H)) {
+            sidePanelVisible = !sidePanelVisible;
+        }
     }
 
     public void ProcessRuleInput(){
@@ -34,5 +53,41 @@ public class UiController : MonoBehaviour{
         GameManager.Instance.ruleInstructions[0] = newRule;
 
         textRuleCurrent.text = "Current rule:\n" + newRule;
+    }
+
+    public void SidePanelMovement(){
+        Vector3  panelTargetPosition;
+        if (sidePanelVisible == true){
+            panelTargetPosition = new Vector3(sidePanelPositionOn.transform.position.x, sidePanelPositionOn.transform.position.y, sidePanelPositionOn.transform.position.z);
+        }
+        else{
+            panelTargetPosition = new Vector3(sidePanelPositionOff.transform.position.x, sidePanelPositionOff.transform.position.y, sidePanelPositionOff.transform.position.z);
+        }
+
+        sidePanel.transform.position = Vector3.Lerp(sidePanel.transform.position, panelTargetPosition, panelSpeed * Time.deltaTime);
+    }
+
+    void SidePanelControls(){
+        if (Input.GetMouseButton(0) && Input.GetMouseButton(1)){
+            if (distancePointSet == false){
+                distancePointSet = true;
+                distanceStartPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            }
+            distanceDifference = Vector3.Distance((Camera.main.ScreenToWorldPoint(Input.mousePosition)), distanceStartPoint); 
+
+            if (distanceDifference <= minDistanceDifference){
+                holdTimer += Time.deltaTime;
+            }
+        }
+        else{
+            holdTimer = 0;
+            distancePointSet = false;
+        }
+
+        if (holdTimer >= holdTimerMax){
+            sidePanelVisible = !sidePanelVisible;
+            holdTimer = 0;
+            distancePointSet = false;
+        }
     }
 }
