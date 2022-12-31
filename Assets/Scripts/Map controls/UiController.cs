@@ -15,7 +15,7 @@ public class UiController : MonoBehaviour{
 
     [SerializeField] GameObject sidePanel; 
     float holdTimer = 0.0f;
-    public float holdTimerMax = 1.2f;
+    public float holdTimerMax = 0.6f;
     public bool sidePanelVisible = false;
 
     [SerializeField] Transform sidePanelPositionOn; 
