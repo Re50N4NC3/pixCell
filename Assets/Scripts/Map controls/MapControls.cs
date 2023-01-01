@@ -16,6 +16,7 @@ public class MapControls : MonoBehaviour {
     float leftClickTimer = 0.0f;
 
     int UILayer;
+    public UiController uiController;
 
     private void Awake() {
         map = GetComponent<GenerateMap>();
@@ -92,6 +93,9 @@ public class MapControls : MonoBehaviour {
     }
 
     public void PickPlacedType() {
+        // disable type change when editing text input
+        if (uiController.editingTextInput == true) return;
+
         if (Input.GetKeyDown(KeyCode.Alpha0)) { pickedType = 0; }
         if (Input.GetKeyDown(KeyCode.Alpha1)) { pickedType = 1; }
         if (Input.GetKeyDown(KeyCode.Alpha2)) { pickedType = 2; }

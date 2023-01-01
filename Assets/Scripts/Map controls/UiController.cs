@@ -27,6 +27,12 @@ public class UiController : MonoBehaviour{
     bool distancePointSet = false;
     float minDistanceDifference = 20.0f;
 
+    public bool editingTextInput = false;
+
+    void Start(){
+        UpdateRules(GameManager.Instance.ruleInstructions[0]);
+    }
+
     // Update is called once per frame
     void Update(){
         SidePanelMovement();
@@ -35,6 +41,14 @@ public class UiController : MonoBehaviour{
         if (Input.GetKeyDown(KeyCode.H)) {
             sidePanelVisible = !sidePanelVisible;
         }
+    }
+
+    public void StopEditingInput(){
+        editingTextInput = false;
+    }
+    
+    public void StartEditingInput(){
+        editingTextInput = true;
     }
 
     public void ProcessRuleInput(){
