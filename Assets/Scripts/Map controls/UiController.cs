@@ -25,9 +25,12 @@ public class UiController : MonoBehaviour{
     float distanceDifference;
     Vector3 distanceStartPoint;
     bool distancePointSet = false;
+    bool putMouseButtonsUp = true;
     float minDistanceDifference = 20.0f;
 
     public bool editingTextInput = false;
+
+    public Image radialBarImage;
 
     void Start(){
         UpdateRules(GameManager.Instance.ruleInstructions[0]);
@@ -83,14 +86,20 @@ public class UiController : MonoBehaviour{
 
     void SidePanelControls(){
         if (Input.GetMouseButton(0) && Input.GetMouseButton(1)){
-            if (distancePointSet == false){
-                distancePointSet = true;
-                distanceStartPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            }
-            distanceDifference = Vector3.Distance((Camera.main.ScreenToWorldPoint(Input.mousePosition)), distanceStartPoint); 
+            if (putMouseButtonsUp == true){
+                if (distancePointSet == false){
+                    distancePointSet = true;
+                    distanceStartPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                }
+                distanceDifference = Vector3.Distance((Camera.main.ScreenToWorldPoint(Input.mousePosition)), distanceStartPoint); 
 
-            if (distanceDifference <= minDistanceDifference){
-                holdTimer += Time.deltaTime;
+                if (distanceDifference <= minDistanceDifference){
+                    holdTimer += Time.deltaTime;
+                }
+                else{
+                    holdTimer = 0; 
+                    distanceStartPoint = new Vector3(10000, 10000, 10000);
+                }
             }
         }
         else{
@@ -102,6 +111,20 @@ public class UiController : MonoBehaviour{
             sidePanelVisible = !sidePanelVisible;
             holdTimer = 0;
             distancePointSet = false;
+            putMouseButtonsUp = false;
         }
+
+        if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1)){
+            putMouseButtonsUp = true;
+        }
+
+        if (holdTimer > 0){
+            radialBarImage.enabled = true;
+            radialBarImage.fillAmount = holdTimer/holdTimerMax;
+        }
+        else{
+            radialBarImage.enabled = false;
+        }
+
     }
 }
