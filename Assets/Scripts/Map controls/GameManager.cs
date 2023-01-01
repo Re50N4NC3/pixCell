@@ -39,6 +39,10 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager Instance { get; private set; }
 
+    // visuals
+    public ColorPicker colorPickerAlive;
+    public ColorPicker colorPickerDead;
+
     private void Awake() {
         // singleton instance check
         if (Instance != null && Instance != this) { 
@@ -261,11 +265,21 @@ public class GameManager : MonoBehaviour {
     }
 
     public void UpdateGridVisuals(Node node) {
-        Color c = new Color(
-            scriptableCellsData[node.cellType].cellColor.r,
-            scriptableCellsData[node.cellType].cellColor.g,
-            scriptableCellsData[node.cellType].cellColor.b
-            );
+        Color c;
+
+        if (node.cellType == 0){
+            c = colorPickerDead.resultColor;
+        }
+        else if(node.cellType == 1){
+            c = colorPickerAlive.resultColor;
+        }
+        else{
+            c = new Color(
+                scriptableCellsData[node.cellType].cellColor.r,
+                scriptableCellsData[node.cellType].cellColor.g,
+                scriptableCellsData[node.cellType].cellColor.b
+                );
+        }
         
         // Color c = new Color(
         //     scriptableCellsData[node.cellType].cellColor.r / (400 / (node.unchangedAge + 10)),
